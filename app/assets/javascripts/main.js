@@ -39,14 +39,16 @@ require(["jquery", "angular"],function($, angular) {
     var app = angular.module("main", []);
 
 
-    app.controller("AppController", ['$scope', function($scope){
+    app.controller("AppController", ['$scope', '$http', function($scope, $http){
 
         $scope.newQuestion = function(){
+            console.log($scope.questions);
+            var newQ = $scope.questions[Math.floor(Math.random() * $scope.questions.length)];
             $scope.currentQuestion = {
-                categories: ["Category"],
-                question: "What color is the dress?",
+                categories: newQ.categories,
+                question: newQ.question,
                 answer1: "1",
-                answer2: "2",
+                answer2: newQ.name,
                 answer3: "3",
                 answer4: "4",
                 correct: 2,
@@ -107,6 +109,11 @@ require(["jquery", "angular"],function($, angular) {
                 $scope.stats.all.total +=1;
             }
         };
+
+        $http.get("/assets/questions.json").success(function(qs){
+            $scope.questions = qs.output; 
+            $scope.newQuestion();
+        });
 
     }]);
 
