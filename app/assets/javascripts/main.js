@@ -38,6 +38,81 @@ require(["jquery", "angular"],function($, angular) {
     console.log(angular);
     var app = angular.module("main", []);
 
+
+    app.controller("AppController", ['$scope', function($scope){
+
+        $scope.newQuestion = function(){
+            $scope.currentQuestion = {
+                categories: ["Category"],
+                question: "What color is the dress?",
+                answer1: "1",
+                answer2: "2",
+                answer3: "3",
+                answer4: "4",
+                correct: 2,
+                answered: -1
+            };
+        };
+
+        $scope.isCorrect = function(answer){
+            return $scope.currentQuestion.answered != -1 && 
+                   $scope.currentQuestion.correct == answer;
+        };
+
+        $scope.isWrong = function(answer){
+            return $scope.currentQuestion.answered == answer && 
+                   $scope.currentQuestion.correct != answer;
+        };
+
+        $scope.display = "question";
+
+        $scope.askQuestion = function(){
+            return $scope.display == "question";
+        };
+
+        $scope.showGraphs = function(){
+            return $scope.display == "graphs";
+        };
+
+        $scope.setDisplay = function(screen){
+            $scope.display = screen;
+        };
+
+        $scope.currentQuestion = {
+            categories: ["Category"],
+            question: "What color is the dress?",
+            answer1: "1",
+            answer2: "2",
+            answer3: "3",
+            answer4: "4",
+            correct: 2,
+            answered: -1
+        };
+
+        $scope.stats = {
+            all: {
+                correct: 0,
+                total: 0
+            }
+        };
+
+        $scope.answer = function(number){
+            if($scope.currentQuestion.answered != -1){
+                $scope.newQuestion();
+            }else{
+                $scope.currentQuestion.answered = number;
+                if(number == $scope.currentQuestion.correct){
+                    $scope.stats.all.correct +=1;
+                }
+                $scope.stats.all.total +=1;
+            }
+        };
+
+    }]);
+
+
+
+
     $(document).ready(function(){
         $.ajaxSetup({
             contentType: "application/json"
