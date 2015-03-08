@@ -6,8 +6,33 @@
     @helper.requireJs(core = routes.Assets.at("javascripts/require.js").url, module = routes.Assets.at("javascripts/main").url)
     <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
 </head>
-<body>
-{{2+3}}
+<body class="body page-index clearfix">
+  <div class="header gold clearfix js-header">
+    <p class="text white-text">TrivMe</p>
+  </div>
+  <div class="question clearfix">
+    <p class="question-title">Question</p>
+    <p class="question-text">What color is the dress? More filler text so that long questions look like this.</p>
+    <div class="answerbox clearfix">
+      <div class="answer gold clearfix">
+        <p class="answer-text0 white-text">White and Gold</p>
+      </div>
+      <div class="answer white clearfix">
+        <p class="answer-text1 gold-text">Black and Blue</p>
+      </div>
+      <div class="answer gold answer-3 clearfix">
+        <p class="answer-text2 white-text">White and Gold</p>
+      </div>
+      <div class="answer white clearfix">
+        <p class="answer-text3 gold-text">Black and Blue</p>
+      </div>
+    </div>
+  </div>
+  <div class="score clearfix">
+    <p class="score-title">Score</p>
+  </div>
 
+  <script src="js/jquery-min.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>
