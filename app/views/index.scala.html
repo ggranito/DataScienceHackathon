@@ -17,26 +17,29 @@
     </div>
   </div>
   <div class="question clearfix" ng-show="askQuestion()">
-    <p class="question-title">{{currentQuestion.categories[0]}}</p>
+    <p class="question-title">Question</p>
     <p class="question-text">{{currentQuestion.question}}</p>
     <div class="answerbox clearfix">
-      <div class="answer gold clearfix" ng-class="{correct:isCorrect(1), wrong:isWrong(1)}" ng-click="answer(1)">
+      <div class="answer gold clearfix" ng-click="answer(1)">
         <p class="answer-text0 white-text" >{{currentQuestion.answer1}}</p>
       </div>
-      <div class="answer white clearfix" ng-class="{correct:isCorrect(2), wrong:isWrong(2)}" ng-click="answer(2)">
+      <div class="answer white clearfix" ng-click="answer(2)">
         <p class="answer-text1 gold-text" >{{currentQuestion.answer2}}</p>
       </div>
-      <div class="answer gold answer-3 clearfix" ng-class="{correct:isCorrect(3), wrong:isWrong(3)}" ng-click="answer(3)">
+      <div class="answer gold answer-3 clearfix" ng-click="answer(3)">
         <p class="answer-text2 white-text">{{currentQuestion.answer3}}</p>
       </div>
-      <div class="answer white clearfix" ng-class="{correct:isCorrect(4), wrong:isWrong(4)}" ng-click="answer(4)">
+      <div class="answer white clearfix" ng-click="answer(4)">
         <p class="answer-text3 gold-text">{{currentQuestion.answer4}}</p>
       </div>
     </div>
+    <div id="result" ng-class="getResult()" ng-show="currentQuestion.answered != -1">{{getResultText()}}</div>
   </div>
   <div class="score clearfix" ng-show="askQuestion()">
     <p class="score-title">Score</p>
-    {{stats.all.correct}}/{{stats.all.total}}
+    <div class="scoreBarCont"><div id="scoreBar">&nbsp;</div></div>
+    <p class="score-text">    {{stats.all.correct}}/{{stats.all.total}}</p>
+
   </div>
 </body>
 </html>

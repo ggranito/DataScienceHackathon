@@ -19,34 +19,42 @@
 .blue-text,
 .white-text,
 .gold-text{
-	transition:color 2s, background-color 2s; 
-	-webkit-transition:color 2s, background-color 2s;
+	// transition:color 2s, background-color 2s; 
+	// -webkit-transition:color 2s, background-color 2s;
 }
 
 
 .black{
 	background-color: rgb(76, 61, 32);
+	-webkit-animation:color-cycle-one 5s linear infinite;
 } 
 .blue{
 	background-color: rgb(122, 132, 181);
+	-webkit-animation:color-cycle-two 5s linear infinite;
 } 
 .white{
 	background-color: rgb(196, 203, 245);
+	-webkit-animation:color-cycle-two 5s linear infinite;
 } 
 .gold{
 	background-color: rgb(163, 130, 63);
+	-webkit-animation:color-cycle-one 5s linear infinite;
 } 
 .black-text{
 	color: rgb(76, 61, 32);
+	-webkit-animation:color-cycle-two 5s linear infinite;
 } 
 .blue-text{
 	color: rgb(122, 132, 181);
+	-webkit-animation:color-cycle-one 5s linear infinite;
 } 
 .white-text{
 	color: rgb(196, 203, 245);
+	-webkit-animation:color-cycle-one 5s linear infinite;
 } 
 .gold-text{
 	color: rgb(163, 130, 63);
+	-webkit-animation:color-cycle-two 5s linear infinite;
 }
 
 
@@ -70,16 +78,52 @@
 	padding: 20px;
 	text-align: center;
 	top: 0px;
+	cursor:pointer;
 }
 
 .correct{
-	background-color: #4F4;
-	transition:color 0.5s, background-color 0.5s; 
-	-webkit-transition:color 0.5s, background-color 0.5s;
+	color: #090;
 }
 
 .wrong{
-	background-color: #F44;
-	transition:color 0.5s, background-color 0.5s; 
-	-webkit-transition:color 0.5s, background-color 0.5s;
+	color: #900;
+}
+
+#result{
+	margin: 20px 5%;
+	font-size: 30px;
+	text-align: center;
+}
+
+
+@-webkit-keyframes color-cycle-one
+{
+0%   {background:rgb(163, 130, 63); color: rgb(196, 203, 245);} //gold+white
+50%  {background:rgb(76, 61, 32); color: rgb(122, 132, 181);} //black b blue
+100%   {background:rgb(163, 130, 63); color: rgb(196, 203, 245);} //gold+white
+}
+
+@-webkit-keyframes color-cycle-two
+{
+0%   {background: rgb(196, 203, 245); color:rgb(163, 130, 63)} //white + gold
+50%  {background: rgb(122, 132, 181); color:rgb(76, 61, 32);} //blue + black
+100%   {background: rgb(196, 203, 245); color:rgb(163, 130, 63)} //white + gold
+}
+
+
+.scoreBarCont{
+	margin: 10px;
+	border: 1px solid #999;
+	background-color: #F77;
+	position: relative;	
+}
+
+#scoreBar{
+	height: 100%;
+	width: 0%;
+	background-color: rgb(119, 255, 119);
+}
+
+.score-text{
+	margin:10px;
 }

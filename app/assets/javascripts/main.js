@@ -13,47 +13,45 @@ require.config({
 });
 
 //MAIN BLOCK
-require(["jquery", "angular"],function($, angular) {
-
-    var wg = function(){
-        $(".black").removeClass("black").addClass("gold");
-        $(".blue").removeClass("blue").addClass("white");
-        $(".black-text").removeClass("black-text").addClass("gold-text");
-        $(".blue-text").removeClass("blue-text").addClass("white-text");
-        setTimeout(bb, 5000);
-    }
+require(["jquery", "angular", "underscore"],function($, angular, _) {
 
 
-    var bb = function(){
-        $(".gold").removeClass("gold").addClass("black");
-        $(".white").removeClass("white").addClass("blue");
-        $(".gold-text").removeClass("gold-text").addClass("black-text");
-        $(".white-text").removeClass("white-text").addClass("blue-text");
-        setTimeout(wg, 5000);
-    };
-
-    wg();
-
-
-    console.log(angular);
     var app = angular.module("main", []);
 
 
     app.controller("AppController", ['$scope', '$http', function($scope, $http){
 
+        $scope.getCategory= function(){
+            return $scope.currentQuestion.categories[0].split("_")
+                         .map(function(e){
+                            return e.charAt(0).toUpperCase() + e.slice(1);
+                         }).join(" ");
+        };
+
         $scope.newQuestion = function(){
-            console.log($scope.questions);
             var newQ = $scope.questions[Math.floor(Math.random() * $scope.questions.length)];
+            var correct = Math.ceil(Math.random() * 4);
+            var answers = _.without(_.shuffle($scope.questions.map(function(e){return e.name})), newQ.name).slice(0, 4);
+            answers[correct-1] = newQ.name;
+
             $scope.currentQuestion = {
                 categories: newQ.categories,
                 question: newQ.question,
-                answer1: "1",
-                answer2: newQ.name,
-                answer3: "3",
-                answer4: "4",
-                correct: 2,
+                answer1: answers[0],
+                answer2: answers[1],
+                answer3: answers[2],
+                answer4: answers[3],
+                correct: correct,
                 answered: -1
             };
+        };
+
+        $scope.getResult = function(){
+            return $scope.currentQuestion.correct == $scope.currentQuestion.answered? "correct" : "wrong";
+        };
+
+        $scope.getResultText = function(){
+            return $scope.currentQuestion.correct == $scope.currentQuestion.answered? "Correct" : "Incorrect";
         };
 
         $scope.isCorrect = function(answer){
@@ -108,9 +106,10 @@ require(["jquery", "angular"],function($, angular) {
                 }
                 $scope.stats.all.total +=1;
             }
+            $("#scoreBar").css("width", (100*($scope.stats.all.correct/ $scope.stats.all.total))+"%");
         };
 
-        $http.get("/assets/questions.json").success(function(qs){
+        $http.get("/assets/musician_output.json").success(function(qs){
             $scope.questions = qs.output; 
             $scope.newQuestion();
         });
